@@ -1,0 +1,29 @@
+{
+  "name": "es6-interface",
+  "version": "1.0.1",
+  "description": "this module helps you build interfaces for es6 class",
+  "main": "interface.js",
+  "dependencies": {
+    "chai": "^4.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amit221/interface.git"
+  },
+  "keywords": [
+    "es6",
+    "interface",
+    "class",
+    "javascript"
+  ],
+  "author": "Amit Wagner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amit221/interface/issues"
+  },
+  "homepage": "https://github.com/amit221/interface#readme"
+}

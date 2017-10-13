@@ -16,7 +16,7 @@ npm install es6-interface --save
 
 <h1>How to use</h1>
 there are basically 2 ways to use this module. <br>
-the first one is  when you don`t need you class to extends anther class
+the first one is  when you don`t need your class to extends anther class
 <h2>Simple implementation</h2> 
 
 first lets declare an interface with the required methods

@@ -20,7 +20,7 @@ the first one is  when you don`t need you class to extends anther class
 <h2>Simple implementation</h2> 
 
 first lets declare an interface with the required methods
-```
+```javascript
 const Interface = require('es6-interface')
 
 class testInterface extends Interface() {
@@ -38,7 +38,7 @@ class testInterface extends Interface() {
 ```
 
 after we create our interface we can just extends him like this
-```
+```javascript
 class testClass extends testInterface {
   constructor() {
        super()
@@ -49,7 +49,7 @@ and if you try to run this you will get an error "testClass must have required f
 
 <h2>with extending anther class</h2> 
 
-```
+```javascript
 const warper = (Class) => {
 
 class testInterface extends Interface(Class) {
@@ -69,7 +69,7 @@ return testInterface;
 
 then we extend the class like this
 
-```
+```javascript
 class parentClass {
   constructor() {
 

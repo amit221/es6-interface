@@ -28,7 +28,7 @@ const warper = (Class) => {
             }
             const requiredMethods = this.methods()
             if (requiredMethods instanceof Set === false) {
-                throw new Error("methods should be of type Set ")
+                throw new Error("methods should be of type Set")
             }
             requiredMethods.forEach(key => {
                 if (ClassMethods.has(key) === false) {

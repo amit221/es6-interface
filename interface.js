@@ -23,10 +23,13 @@ const warper = (Class) => {
 
             super()
             const ClassMethods = getClassMethodNames(this);
-            if (typeof this.requiredMethods !== 'function') {
-                throw new Error("requiredMethods is required")
+            if (typeof this.methods !== 'function') {
+                throw new Error("methods should be of type function")
             }
-            const requiredMethods = this.requiredMethods()
+            const requiredMethods = this.methods()
+            if (requiredMethods instanceof Set === false) {
+                throw new Error("methods should be of type Set ")
+            }
             requiredMethods.forEach(key => {
                 if (ClassMethods.has(key) === false) {
                     throw  new Error(this.constructor.name + ' must have ' + key + ' function')

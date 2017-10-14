@@ -28,6 +28,7 @@ first we start with a simple 1 interface implementation
 <h2>One interface implementation</h2> 
 
 ```javascript
+
 const Interface = require('es6-interface')
 const testInterface1 = new Set(['required1']); // required1 is the method we force to implement
 
@@ -44,6 +45,7 @@ new testClass() // now we will get an error that we need to implement required1 
 
 
 <h2>Multi interface implementation</h2> 
+
 ```javascript
 
 const Interface = require('es6-interface')
@@ -61,6 +63,7 @@ new testClass() // now we will get an error that we need to implement required1 
 ```
 
 <h2>Multi interface with class inheritance </h2> 
+
 ```javascript
 
 const Interface = require('es6-interface')

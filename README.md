@@ -5,6 +5,12 @@ Interface is a Nodejs module  that let you build interfaces for es6 classes
 in today javascript there is no way to declare an interface like other language's as php or java.
 with es6-interface easily build interfaces , use multi interfaces on the same class and secure your class.
 
+<h2>Notice</h2>
+version 1 has been deprecated and will not longer be supported.<br>
+if you are using version 1 in your code and upgrade to version 2  your code wont work.
+i recommend you to upgrade to v2 .<br>
+ its a lot easier to use and now your class can use multi interface for the same class
+
 
 <h2>Limitations</h2>
 currently works only on Nodejs with es6 class

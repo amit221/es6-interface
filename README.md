@@ -44,6 +44,7 @@ new testClass() // now we will get an error that we need to implement required1 
 
 
 <h2>Multi interface implementation</h2> 
+
 ```javascript
 
 const Interface = require('es6-interface')

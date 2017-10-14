@@ -4,178 +4,89 @@ const chai = require('chai');
 const expect = chai.expect;
 const Interface = require('../interface')
 
+const testInterface1 = new Set(['required1']);
+const testInterface2 = new Set(['required2', 'required3']);
+const testInterface4 = new Set(['required4']);
+
+class parentClass {
+    constructor() {
+
+    }
+
+    required4() {
+
+    }
+}
+
+
 describe('Interface', () => {
 
-    it('should throw error if methods is not a function ', () => {
-
-        const warper = (Class) => {
-            class testInterface extends Interface(Class) {
+    it('should throw error if no interfaces supplied ', () => {
+        try {
+            class testClass extends Interface() {
                 constructor() {
-                    super()
+                    super();
                 }
-
-            }
-            return testInterface;
-        };
-
-        class testClass extends warper() {
-            constructor() {
-                super()
             }
 
         }
-
+        catch (err) {
+            expect(err.message).to.equal("you need to supply at least one interface")
+        }
+    });
+    it('should throw error if interface is not instance of Set ', () => {
         try {
+            class testClass extends Interface('STRING') {
+                constructor() {
+                    super();
+                }
+            }
+
+            new testClass();
+    }
+        catch (err) {
+            expect(err.message).to.equal("interfaces need to be instance of Set")
+        }
+    });
+    it('should throw error class did not implemented testInterface1 interface ', () => {
+        try {
+            class testClass extends Interface(testInterface1) {
+                constructor() {
+                    super();
+                }
+            }
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("methods should be of type function")
+            expect(err.message).to.equal("testClass must have required1 methods")
         }
+    });
 
-
-    })
-
-    it('should throw error if methods don`t return Set', () => {
-
-        const warper = (Class) => {
-            class testInterface extends Interface(Class) {
-                constructor() {
-                    super()
-                }
-
-            }
-            return testInterface;
-        };
-
-        class testClass extends warper() {
-            constructor() {
-                super()
-            }
-
-            methods() {
-
-            }
-        }
-
+    it('should throw error class did not implemented testInterface1 and testInterface2 interface ', () => {
         try {
+            class testClass extends Interface(testInterface1,testInterface2) {
+                constructor() {
+                    super();
+                }
+            }
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("methods should be of type Set")
+            expect(err.message).to.equal("testClass must have required1 required2 required3 methods")
         }
     })
 
-
-    it('should throw error with message required method name and class', () => {
-        const warper = (Class) => {
-
-            class testInterface extends Interface(Class) {
-                constructor() {
-                    super()
-                }
-
-                methods() {
-                    return new Set([
-                        'required'
-                    ])
-                }
-            }
-            return testInterface;
-        }
-
-        class testClass extends warper() {
-            constructor() {
-                super()
-            }
-        }
-
+    it('should throw error class did not implemented testInterface1 and testInterface2 interface ', () => {
         try {
+            class testClass extends Interface(testInterface1,testInterface2,testInterface4,parentClass) {
+                constructor() {
+                    super();
+                }
+            }
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("testClass must have required function")
+            expect(err.message).to.equal("testClass must have required1 required2 required3 methods")
         }
-
-    })
-
-    it('should have parent class methods', () => {
-        const warper = (Class) => {
-
-            class testInterface extends Interface(Class) {
-                constructor() {
-                    super()
-                }
-
-                methods() {
-                    return new Set([
-                        'required'
-                    ])
-                }
-            }
-            return testInterface;
-        };
-
-        class parentClass {
-            constructor() {
-
-            }
-
-            required() {
-
-            }
-        }
-
-        class testClass extends warper(parentClass) {
-            constructor() {
-                super()
-            }
-
-        }
-
-        try {
-            new testClass();
-        }
-        catch (err) {
-            expect(err.message).to.equal("should extend")
-        }
-
-    })
-
-    it('should work without parent class extend ', () => {
-
-
-        class testInterface extends Interface() {
-            constructor() {
-                super()
-            }
-
-            methods() {
-                return new Set([
-                    'required'
-                ])
-            }
-        }
-
-
-        class testClass extends testInterface {
-            constructor() {
-                super()
-            }
-            required(){
-                return 'ok';
-            }
-
-        }
-
-        try {
-            const t = new testClass();
-
-            expect(t.required()).to.equal("should extend")
-        }
-        catch (err) {
-
-        }
-
-
     })
 });

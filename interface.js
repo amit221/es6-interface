@@ -11,30 +11,47 @@ class DummyClassForExtendsIfNoClassWasSendToAvoidError {
 }
 
 
-const warper = (Class) => {
+const container = function () {
 
-    if (typeof Class !== 'function' && typeof Class !== 'object') {
+    if (container.arguments.length === 0) {
+        throw new Error('you need to supply at least one interface');
+    }
+
+    let arr = [];
+    const argLength = container.arguments.length;
+    let Class = null;
+    for (let i in container.arguments) {
+
+        if (container.arguments[i] instanceof Set) {
+            arr = [...arr, ...container.arguments[i]];
+        }
+        else if (parseInt(i) + 1 === argLength && typeof container.arguments[i] === "function") {
+            Class = container.arguments[i];
+        }
+        else {
+            throw new Error("interfaces need to be instance of Set")
+        }
+    }
+
+    let requiredMethods = new Set(arr);
+    if (Class === null) {
         Class = DummyClassForExtendsIfNoClassWasSendToAvoidError
     }
 
     class Interface extends Class {
 
         constructor() {
-
-            super()
+            super();
             const ClassMethods = getClassMethodNames(this);
-            if (typeof this.methods !== 'function') {
-                throw new Error("methods should be of type function")
-            }
-            const requiredMethods = this.methods()
-            if (requiredMethods instanceof Set === false) {
-                throw new Error("methods should be of type Set")
-            }
+            let errors = "";
             requiredMethods.forEach(key => {
                 if (ClassMethods.has(key) === false) {
-                    throw  new Error(this.constructor.name + ' must have ' + key + ' function')
+                    errors += key + " ";
                 }
             });
+            if (errors) {
+                throw  new Error(this.constructor.name + ' must have ' + errors + 'methods')
+            }
         }
 
 
@@ -42,4 +59,4 @@ const warper = (Class) => {
     return Interface
 }
 
-module.exports = warper;
+module.exports = container;

@@ -3,7 +3,8 @@ Interface is a Nodejs module  that let you build interfaces for es6 classes
 
 <h2>Introduction</h2>
 in today javascript there is no way to declare an interface like other language's as php or java.
-with es6-interface you can easily build interfaces and secure your class.
+with es6-interface easily build interfaces , use multi interfaces on the same class and secure your class.
+
 
 <h2>Limitations</h2>
 currently works only on Nodejs with es6 class
@@ -14,81 +15,73 @@ currently works only on Nodejs with es6 class
 npm install es6-interface --save
 ```
 
-<h1>How to use</h1>
-there are basically 2 ways to use this module. <br>
-the first one is  when you don`t need your class to extends anther class
-<h2>Simple implementation</h2> 
+lets jump to some examples
+<h1>Examples</h1>
 
-first lets declare an interface with the required methods
+first we start with a simple 1 interface implementation
+<h2>One interface implementation</h2> 
+
 ```javascript
 const Interface = require('es6-interface')
+const testInterface1 = new Set(['required1']); // required1 is the method we force to implement
 
-class testInterface extends Interface() {
+class testClass extends Interface(testInterface1) {
   constructor() {
     super()
   }
 
-  methods() {            // create a function called methods
-    return new Set([     // create a new set
-      'required'         // declare the properties names you wish your class will have to implement
-    ])
-  }
 }
+
+new testClass() // now we will get an error that we need to implement required1 method
 
 ```
 
-after we create our interface we can just extends him like this
+
+<h2>Multi interface implementation</h2> 
 ```javascript
-class testClass extends testInterface {
+
+const Interface = require('es6-interface')
+const testInterface1 = new Set(['required1']);
+const testInterface2 = new Set(['required2', 'required3']);
+
+class testClass extends Interface(testInterface1,testInterface2) {
   constructor() {
-       super()
+    super()
   }
+
 }
-```
-and if you try to run this you will get an error "testClass must have required function".
 
-<h2>with extending anther class</h2> 
-
-```javascript
-const warper = (Class) => {
-
-class testInterface extends Interface(Class) {
-    constructor() {
-        super()
-    }
-
-    methods() {
-      return new Set([
-        'required'
-      ])
-    }
-}
-return testInterface;
-};
+new testClass() // now we will get an error that we need to implement required1 ,required2 ,required3 methods
 ```
 
-then we extend the class like this
-
+<h2>Multi interface with class inheritance </h2> 
 ```javascript
+
+const Interface = require('es6-interface')
+const testInterface1 = new Set(['required1']);
+const testInterface2 = new Set(['required2', 'required3']);
+const testInterface4 = new Set(['required4']);
+
 class parentClass {
+    constructor() {
+
+    }
+
+    required4() {
+
+    }
+}
+class testClass extends Interface(testInterface1,testInterface2,testInterface4,parentClass) {
   constructor() {
-
+    super()
   }
 
-  required() {
-
-  }
 }
 
-class testClass extends warper(parentClass) {
-  constructor() {
-     super()
-  }
-
-}
-
+new testClass() //  we will still get an error for no implement required1 ,required2 ,required3 methods as we get required4 from our parent class
 ```
-<h1>Test</h1>
+
+<h1>Tests</h1>
 
 ```
 npm test

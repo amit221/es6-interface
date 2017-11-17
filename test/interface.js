@@ -2,11 +2,11 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const Interface = require('../interface')
+const Interface = require('../interface');
 
-const testInterface1 = new Set(['required1']);
-const testInterface2 = new Set(['required2', 'required3']);
-const testInterface4 = new Set(['required4']);
+const testInterface1 = new Set(['required1()']);
+const testInterface2 = new Set(['required2()', 'required3()']);
+const testInterface4 = new Set(['required4()']);
 
 class parentClass {
     constructor() {
@@ -89,4 +89,6 @@ describe('Interface', () => {
             expect(err.message).to.equal("testClass must have required1 required2 required3 methods")
         }
     })
+
+
 });

@@ -6,6 +6,33 @@ const getClassMethodNames = (obj) => {
     }
     return methods;
 }
+const getArgs = (func) => {
+
+    // First match everything inside the function argument parens.
+    let args = null;
+    if (typeof func === 'function') {
+        args = func.toString().match(/function\s.*?\(([^)]*)\)/);
+    }
+    else if (typeof func === 'string') {
+        args = func.toString().match(/.*?\(([^)]*)\)/);
+
+    }
+    else {
+        throw new Error('func must be of type function or string');
+    }
+
+    if (args === null) {
+        return null;
+    }
+    // Split the arguments string into an array comma delimited.
+    return args.split(',').map((arg) => {
+        // Ensure no inline comments are parsed and trim the whitespace.
+        return arg.replace(/\/\*.*\*\//, '').trim();
+    }).filter(function (arg) {
+        // Ensure no undefined values are added.
+        return arg;
+    });
+};
 
 class DummyClassForExtendsIfNoClassWasSendToAvoidError {
 }
@@ -20,6 +47,7 @@ const container = function () {
     let arr = [];
     const argLength = container.arguments.length;
     let Class = null;
+
     for (let i in container.arguments) {
 
         if (container.arguments[i] instanceof Set) {
@@ -41,13 +69,23 @@ const container = function () {
     class Interface extends Class {
 
         constructor() {
-            super();
+            if (Class !== null) {
+                super();
+            }
             const ClassMethods = getClassMethodNames(this);
             let errors = "";
             requiredMethods.forEach(key => {
-                if (ClassMethods.has(key) === false) {
-                    errors += key + " ";
+                let methodNameIndex = key.indexOf("(");
+                let methodName = methodNameIndex > -1 ? key.substr(0, methodNameIndex) : key;
+
+                if (ClassMethods.has(methodName) === false) {
+                    errors += methodName + " ";
                 }
+                else {
+                    console.log(getArgs(this[methodName]))
+
+                }
+
             });
             if (errors) {
                 throw  new Error(this.constructor.name + ' must have ' + errors + 'methods')

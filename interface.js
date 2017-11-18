@@ -7,25 +7,25 @@ const getClassMethodNames = (obj) => {
     return methods;
 }
 const getArgs = (func) => {
-
-    // First match everything inside the function argument parens.
     let args = null;
+
     if (typeof func === 'function') {
-        args = func.toString().match(/function\s.*?\(([^)]*)\)/);
+        args = func.toString().match(/\(\s*([^)]+?)\s*\)/);
     }
     else if (typeof func === 'string') {
-        args = func.toString().match(/.*?\(([^)]*)\)/);
+        args = func.match(/\(\s*([^)]+?)\s*\)/);
 
     }
     else {
         throw new Error('func must be of type function or string');
     }
 
-    if (args === null) {
-        return null;
+    if (args === null || !args[1]) {
+        return "";
     }
+    args = args[1];
     // Split the arguments string into an array comma delimited.
-    return args.split(',').map((arg) => {
+    return args.split(/\s*,\s*/).map((arg) => {
         // Ensure no inline comments are parsed and trim the whitespace.
         return arg.replace(/\/\*.*\*\//, '').trim();
     }).filter(function (arg) {
@@ -33,6 +33,7 @@ const getArgs = (func) => {
         return arg;
     });
 };
+
 
 class DummyClassForExtendsIfNoClassWasSendToAvoidError {
 }
@@ -69,32 +70,29 @@ const container = function () {
     class Interface extends Class {
 
         constructor() {
-            if (Class !== null) {
-                super();
-            }
+            super();
+
             const ClassMethods = getClassMethodNames(this);
             let errors = "";
             requiredMethods.forEach(key => {
                 let methodNameIndex = key.indexOf("(");
                 let methodName = methodNameIndex > -1 ? key.substr(0, methodNameIndex) : key;
 
-                if (ClassMethods.has(methodName) === false) {
-                    errors += methodName + " ";
-                }
-                else {
-                    console.log(getArgs(this[methodName]))
+                if (ClassMethods.has(methodName) === false || getArgs(this[methodName]).toString() !== getArgs(key).toString()) {
+                    errors += `${methodName}(${getArgs(key)}) `;
 
                 }
 
             });
+
             if (errors) {
-                throw  new Error(this.constructor.name + ' must have ' + errors + 'methods')
+                throw  new Error(this.constructor.name + ' must implement ' + errors + 'methods')
             }
         }
 
 
     }
     return Interface
-}
+};
 
 module.exports = container;

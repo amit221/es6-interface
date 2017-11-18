@@ -4,16 +4,17 @@ const chai = require('chai');
 const expect = chai.expect;
 const Interface = require('../interface');
 
-const testInterface1 = new Set(['required1()']);
-const testInterface2 = new Set(['required2()', 'required3()']);
-const testInterface4 = new Set(['required4()']);
+const testInterface1 = new Set(['required1(arg1)']);
+const testInterface2 = new Set(['required2(arg1,arg2)', 'required3({arg1 , arg2 , arg3})']);
+const testInterface3 = new Set(['missingArgumentMethod(arg1)']);
+const testInterface4 = new Set(['required4({arg1    ,     arg2 , arg3},arg4)']);
 
 class parentClass {
     constructor() {
 
     }
 
-    required4() {
+    required4({arg1  , arg2 ,arg3},arg4) {
 
     }
 }
@@ -58,7 +59,21 @@ describe('Interface', () => {
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("testClass must have required1 methods")
+            expect(err.message).to.equal("testClass must implement required1(arg1) methods")
+        }
+    });
+    it('should throw error class did not implemented testInterface3 interface ', () => {
+        try {
+            class testClass extends Interface(testInterface3) {
+                constructor() {
+                    super();
+                }
+                required6(){}
+            }
+            new testClass();
+        }
+        catch (err) {
+            expect(err.message).to.equal("testClass must implement missingArgumentMethod(arg1) methods")
         }
     });
 
@@ -72,7 +87,7 @@ describe('Interface', () => {
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("testClass must have required1 required2 required3 methods")
+            expect(err.message).to.equal("testClass must implement required1(arg1) required2(arg1,arg2) required3({arg1,arg2,arg3}) methods")
         }
     })
 
@@ -82,11 +97,12 @@ describe('Interface', () => {
                 constructor() {
                     super();
                 }
+
             }
             new testClass();
         }
         catch (err) {
-            expect(err.message).to.equal("testClass must have required1 required2 required3 methods")
+            expect(err.message).to.equal("testClass must implement required1(arg1) required2(arg1,arg2) required3({arg1,arg2,arg3}) methods")
         }
     })
 

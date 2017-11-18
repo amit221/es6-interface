@@ -1,5 +1,5 @@
 <h1>es6-interface</h1>
-javascript-class-interface is a Nodejs module  that let you build interfaces for es6 classes
+es6-interfac is a Nodejs module  that let you build interfaces for es6 classes
 
 <h2>Introduction</h2>
 in today javascript there is no way to declare an interface like other language's as php or java.

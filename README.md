@@ -64,14 +64,14 @@ new testClass() // now we will get an error that we need to implement required1(
 const Interface = require('es6-interface');
 const testInterface1 = new Set(['required1(arg1)']);
 const testInterface2 = new Set(['required2(arg1,arg2)', 'required3({arg1 , arg2 , arg3})']);
-const testInterface4 = new Set(['required4({arg1    ,     arg2 , arg3},arg4)']);
+const testInterface4 = new Set(['required4({arg1, arg2, arg3}, arg4)']);
 
 class parentClass {
     constructor() {
 
     }
-
-    required4() {
+    
+    required4({arg1, arg2, arg3}, arg4) {
 
     }
 }

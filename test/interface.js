@@ -7,14 +7,14 @@ const Interface = require('../interface');
 const testInterface1 = new Set(['required1(arg1)']);
 const testInterface2 = new Set(['required2(arg1,arg2)', 'required3({arg1 , arg2 , arg3})']);
 const testInterface3 = new Set(['missingArgumentMethod(arg1)']);
-const testInterface4 = new Set(['required4({arg1    ,     arg2 , arg3},arg4)']);
+const testInterface4 = new Set(['required4({arg1, arg2, arg3}, arg4)']);
 
 class parentClass {
     constructor() {
 
     }
 
-    required4({arg1  , arg2 ,arg3},arg4) {
+    required4({arg1, arg2, arg3}, arg4) {
 
     }
 }
@@ -44,7 +44,7 @@ describe('Interface', () => {
             }
 
             new testClass();
-    }
+        }
         catch (err) {
             expect(err.message).to.equal("interfaces need to be instance of Set")
         }
@@ -68,7 +68,9 @@ describe('Interface', () => {
                 constructor() {
                     super();
                 }
-                required6(){}
+
+                required6() {
+                }
             }
             new testClass();
         }
@@ -79,7 +81,7 @@ describe('Interface', () => {
 
     it('should throw error class did not implemented testInterface1 and testInterface2 interface ', () => {
         try {
-            class testClass extends Interface(testInterface1,testInterface2) {
+            class testClass extends Interface(testInterface1, testInterface2) {
                 constructor() {
                     super();
                 }
@@ -93,7 +95,7 @@ describe('Interface', () => {
 
     it('should throw error class did not implemented testInterface1 and testInterface2 interface ', () => {
         try {
-            class testClass extends Interface(testInterface1,testInterface2,testInterface4,parentClass) {
+            class testClass extends Interface(testInterface1, testInterface2, testInterface4, parentClass) {
                 constructor() {
                     super();
                 }

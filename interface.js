@@ -1,11 +1,11 @@
 const getClassMethodNames = (obj) => {
     let methods = new Set();
     while (obj = Reflect.getPrototypeOf(obj)) {
-        let keys = Reflect.ownKeys(obj)
+        let keys = Reflect.ownKeys(obj);
         keys.forEach((k) => methods.add(k));
     }
     return methods;
-}
+};
 const getArgs = (func) => {
     let args = null;
 
@@ -58,13 +58,13 @@ const container = function (options) {
             Class = container.arguments[i];
         }
         else {
-            throw new Error("interfaces need to be instance of Set")
+            throw new Error("interfaces need to be instance of Set");
         }
     }
 
     let requiredMethods = new Set(arr);
     if (Class === null) {
-        Class = DummyClassForExtendsIfNoClassWasSendToAvoidError
+        Class = DummyClassForExtendsIfNoClassWasSendToAvoidError;
     }
 
     class Interface extends Class {
@@ -86,13 +86,25 @@ const container = function (options) {
             });
 
             if (errors) {
-                throw  new Error(this.constructor.name + ' must implement ' + errors + 'methods')
+                throw  new Error(this.constructor.name + ' must implement ' + errors + 'methods');
             }
         }
 
 
     }
-    return Interface
-};
 
-module.exports = container;
+    return Interface;
+};
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = container;
+}
+else {
+    if (typeof define === 'function' && define.amd) {
+        define([], function () {
+            return container;
+        });
+    }
+    else {
+        window.Validator = container;
+    }
+}

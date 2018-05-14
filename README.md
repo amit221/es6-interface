@@ -8,8 +8,9 @@ with es6-interface easily build interfaces , use multi interfaces on the same cl
 
 
 <h2>Limitations</h2>
-currently works only on Nodejs with es6 class
-
+works on NodeJS version 6+,
+works only on modern web browsers,
+tested only on NodeJS
 <h2>Installing</h2>
 
 ```

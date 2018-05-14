@@ -39,7 +39,7 @@ class DummyClassForExtendsIfNoClassWasSendToAvoidError {
 }
 
 
-const container = function () {
+const container = function (options) {
 
     if (container.arguments.length === 0) {
         throw new Error('you need to supply at least one interface');
@@ -69,8 +69,8 @@ const container = function () {
 
     class Interface extends Class {
 
-        constructor() {
-            super();
+        constructor(options) {
+            super(options);
 
             const ClassMethods = getClassMethodNames(this);
             let errors = "";

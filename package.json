@@ -1,12 +1,12 @@
 {
   "name": "es6-interface",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "this module helps you build interfaces for es6 class",
   "main": "interface.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "chai": "^4.1.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "mocha --timeout 10000"
   },

@@ -9,27 +9,27 @@ const getClassMethodNames = (obj) => {
 const getArgs = (func) => {
     let args = null;
 
-    if (typeof func === 'function') {
-        args = func.toString().match(/\(\s*([^)]+?)\s*\)/);
-    }
-    else if (typeof func === 'string') {
-        args = func.match(/\(\s*([^)]+?)\s*\)/);
-
-    }
-    else {
-        throw new Error('func must be of type function or string');
+    switch (typeof func) {
+        case 'function': {
+            args = func.toString().match(/\(\s*([^)]+?)\s*\)/);
+            break;
+        }
+        case 'string': {
+            args = func.match(/\(\s*([^)]+?)\s*\)/);
+            break;
+        }
+        default: {
+            throw new Error('func must be of type function or string');
+        }
     }
 
     if (args === null || !args[1]) {
         return "";
     }
     args = args[1];
-    // Split the arguments string into an array comma delimited.
     return args.split(/\s*,\s*/).map((arg) => {
-        // Ensure no inline comments are parsed and trim the whitespace.
         return arg.replace(/\/\*.*\*\//, '').trim();
-    }).filter(function (arg) {
-        // Ensure no undefined values are added.
+    }).filter(arg => {
         return arg;
     });
 };
@@ -80,31 +80,30 @@ const container = function (options) {
 
                 if (ClassMethods.has(methodName) === false || getArgs(this[methodName]).toString() !== getArgs(key).toString()) {
                     errors += `${methodName}(${getArgs(key)}) `;
-
                 }
-
             });
 
             if (errors) {
                 throw  new Error(this.constructor.name + ' must implement ' + errors + 'methods');
             }
         }
-
-
     }
 
     return Interface;
 };
+
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = container;
+    return;
 }
-else {
-    if (typeof define === 'function' && define.amd) {
-        define([], function () {
-            return container;
-        });
-    }
-    else {
-        window.Validator = container;
-    }
+
+if (typeof define === 'function' && define.amd) {
+    define([], function () {
+        return container;
+    });
+    return;
 }
+
+window.es6Interface = container;
+
+

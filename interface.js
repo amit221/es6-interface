@@ -11,11 +11,11 @@ const getArgs = (func) => {
 
     switch (typeof func) {
         case 'function': {
-            args = func.toString().match(/\(\s*([^)]+?)\s*\)/);
+            args = func.toString().match(/\(\s*([^)]*?)\s*\)/);
             break;
         }
         case 'string': {
-            args = func.match(/\(\s*([^)]+?)\s*\)/);
+            args = func.match(/\(\s*([^)]*?)\s*\)/);
             break;
         }
         default: {

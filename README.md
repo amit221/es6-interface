@@ -16,6 +16,10 @@ tested only on NodeJS
 ```
 npm install es6-interface --save
 ```
+<h2>Declaring an interface</h2>
+there are 3 ways to declare an interface
+as a set , array or an object. the most common way is using and object.
+check the tests file if you want to declare using sets
 
 lets jump to some examples
 <h2>Examples</h2>

@@ -55,11 +55,11 @@ const testInterface1 = {
 	required1: function(arg1) {
 	}
 };
-const testInterface2 = {
-  	required2: function (arg1, arg2) {
-  	},
-  	required3: function({arg1, arg2, arg3}) {
-  	}
+const testInterface2 = {    
+    required2: function (arg1, arg2) {
+    },
+    required3: function({arg1, arg2, arg3}) {
+    }
 };
 class testClass extends Interface(testInterface1,testInterface2) {
   constructor() {

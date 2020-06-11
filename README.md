@@ -26,8 +26,10 @@ first we start with a simple 1 interface implementation
 ```javascript
 
 const Interface = require('es6-interface')
-const testInterface1 = new Set(['required1(arg1)']); // required1 is the method we force to implement
-
+const testInterface1 = {
+	required1: function(arg1) {
+	}
+};
 class testClass extends Interface(testInterface1) {
   constructor() {
     super()
@@ -45,9 +47,16 @@ new testClass() // now we will get an error that we need to implement required1(
 ```javascript
 
 const Interface = require('es6-interface');
-const testInterface1 = new Set(['required1(arg1)']);
-const testInterface2 = new Set(['required2(arg1,arg2)', 'required3({arg1 , arg2 , arg3})']);
-
+const testInterface1 = {
+	required1: function(arg1) {
+	}
+};
+const testInterface2 = {
+  	required2: function (arg1, arg2) {
+  	},
+  	required3: function({arg1, arg2, arg3}) {
+  	}
+};
 class testClass extends Interface(testInterface1,testInterface2) {
   constructor() {
     super()
@@ -63,10 +72,20 @@ new testClass() // now we will get an error that we need to implement required1(
 ```javascript
 
 const Interface = require('es6-interface');
-const testInterface1 = new Set(['required1(arg1)']);
-const testInterface2 = new Set(['required2(arg1,arg2)', 'required3({arg1 , arg2 , arg3})']);
-const testInterface4 = new Set(['required4({arg1, arg2, arg3}, arg4)']);
-
+const testInterface1 = {
+	required1: function(arg1) {
+	}
+};
+const testInterface2 = {
+  	required2: function (arg1, arg2) {
+  	},
+  	required3: function({arg1, arg2, arg3}) {
+  	}
+};
+const testInterface4 = {
+	required4: function ({arg1, arg2, arg3}, arg4) {
+	}
+};
 class parentClass {
     constructor() {
 

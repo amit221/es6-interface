@@ -31,8 +31,8 @@ first we start with a simple 1 interface implementation
 
 const Interface = require('es6-interface')
 const testInterface1 = {
-	required1: function(arg1) {
-	}
+    required1: function(arg1) {
+    }
 };
 class testClass extends Interface(testInterface1) {
   constructor() {
@@ -52,8 +52,8 @@ new testClass() // now we will get an error that we need to implement required1(
 
 const Interface = require('es6-interface');
 const testInterface1 = {
-	required1: function(arg1) {
-	}
+    required1: function(arg1) {
+    }
 };
 const testInterface2 = {    
     required2: function (arg1, arg2) {
@@ -77,18 +77,18 @@ new testClass() // now we will get an error that we need to implement required1(
 
 const Interface = require('es6-interface');
 const testInterface1 = {
-	required1: function(arg1) {
-	}
+    required1: function(arg1) {
+    }
 };
-const testInterface2 = {
-  	required2: function (arg1, arg2) {
-  	},
-  	required3: function({arg1, arg2, arg3}) {
-  	}
+const testInterface2 = {    
+    required2: function (arg1, arg2) {
+    },
+    required3: function({arg1, arg2, arg3}) {
+    }
 };
 const testInterface4 = {
-	required4: function ({arg1, arg2, arg3}, arg4) {
-	}
+    required4: function ({arg1, arg2, arg3}, arg4) {
+    }
 };
 class parentClass {
     constructor() {

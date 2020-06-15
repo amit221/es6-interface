@@ -28,7 +28,7 @@ const getArgs = (func) => {
 	}
 	args = args[1];
 	return args.split(/\s*,\s*/).map((arg) => {
-		return arg.replace(/\/\*.*\*\//, '').trim();
+		return arg.replace(/\/\*.*\*\//, '').replace(/=.*/, "").trim();
 	}).filter(arg => {
 		return arg;
 	});

@@ -3,13 +3,15 @@
   "version": "3.1.4",
   "description": "this module helps you build interfaces for es6 class",
   "main": "interface.js",
-  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "eslint": "^7.26.0",
+    "mocha": "^5.2.0",
+    "prettier": "^2.3.0"
   },
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

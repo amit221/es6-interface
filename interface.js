@@ -1,3 +1,7 @@
+String.prototype.removeAllSpaces = function () {
+  return this.replace(/\s+/g, '');
+};
+
 const getClassMethodNames = (obj) => {
   let methods = new Set();
   while ((obj = Reflect.getPrototypeOf(obj))) {
@@ -11,11 +15,14 @@ const getArgs = (func) => {
 
   switch (typeof func) {
     case 'function': {
-      args = func.toString().match(/\(\s*([^)]*?)\s*\)/);
+      args = func
+        .toString()
+        .removeAllSpaces()
+        .match(/\(\s*([^)]*?)\s*\)/);
       break;
     }
     case 'string': {
-      args = func.match(/\(\s*([^)]*?)\s*\)/);
+      args = func.removeAllSpaces().match(/\(\s*([^)]*?)\s*\)/);
       break;
     }
     default: {
@@ -50,14 +57,25 @@ function getMethodsFromObject(obj) {
       if (funcStr.includes('function')) {
         return (
           funcName +
-          funcStr.substr(0, funcStr.lastIndexOf('{')).replace('function', '')
+          funcStr
+            .substr(0, funcStr.lastIndexOf('{'))
+            .replace('function', '')
+            .removeAllSpaces()
         );
       } else if (funcStr.includes('(')) {
         return (
-          funcName + funcStr.substr(funcStr.indexOf('('), funcStr.indexOf('='))
+          funcName +
+          funcStr
+            .substr(funcStr.indexOf('('), funcStr.indexOf('='))
+            .removeAllSpaces()
         );
       } else {
-        return funcName + '(' + funcStr.substr(0, funcStr.indexOf('=')) + ')';
+        return (
+          funcName +
+          '(' +
+          funcStr.substr(0, funcStr.indexOf('=')) +
+          ')'.removeAllSpaces()
+        );
       }
     });
 }

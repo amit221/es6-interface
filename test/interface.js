@@ -27,10 +27,14 @@ const testInterface4Object = {
 };
 
 const testInterface5Object = {
-  required5({ arg1 }) {},
-  required6: ({ arg1 }) => {},
+  required5({ arg1, arg2 }) {},
 };
 
+class testInterface6Class {
+  required6({ arg1, arg2 }) {}
+}
+
+const testInterface7Array = ['required7({ arg1, arg2 })'];
 class parentClass {
   constructor() {}
 
@@ -202,7 +206,7 @@ describe('Interface', () => {
       );
     }
   });
-  it('should throw error class did not implemented testInterface5Object', () => {
+  it('should throw error class did not implement testInterface5Object methods', () => {
     try {
       class testClass extends Interface(testInterface5Object) {
         constructor() {
@@ -213,7 +217,37 @@ describe('Interface', () => {
       new testClass();
     } catch (err) {
       expect(err.message).to.equal(
-        'testClass must implement required5({arg1}) required6({arg1}) methods'
+        'testClass must implement required5({arg1,arg2}) methods'
+      );
+    }
+  });
+  it('should throw error class did not implement testInterface6Class methods', () => {
+    try {
+      class testClass extends Interface(testInterface6Class) {
+        constructor() {
+          super();
+        }
+      }
+
+      new testClass();
+    } catch (err) {
+      expect(err.message).to.equal(
+        'testClass must implement required6({arg1,arg2}) methods'
+      );
+    }
+  });
+  it('should throw error class did not implement testInterface7Array methods', () => {
+    try {
+      class testClass extends Interface(testInterface7Array) {
+        constructor() {
+          super();
+        }
+      }
+
+      new testClass();
+    } catch (err) {
+      expect(err.message).to.equal(
+        'testClass must implement required7({arg1,arg2}) methods'
       );
     }
   });

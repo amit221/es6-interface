@@ -76,7 +76,7 @@ function getMethodsFromObject(obj) {
           return (
             funcName +
             funcStr
-              .substr(funcStr.indexOf('('), funcStr.indexOf('{'))
+              .substr(funcStr.indexOf('('), funcStr.lastIndexOf('{'))
               .removeAllSpaces()
           );
         }

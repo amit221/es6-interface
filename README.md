@@ -50,7 +50,7 @@ npm install es6-interface --save
 
 ## Declaring an interface
 
-There are 4 ways to declare an interface:
+There are 3 ways to declare an interface:
 - Set: ```const IFoo = new Set["method1(arg1)","method2(arg1)"]```
 - Array: ```const IFoo = ["method1(arg1)","method2(arg1)"]```
 - Object: ```const IFoo { method1() {}, method2() {} }```

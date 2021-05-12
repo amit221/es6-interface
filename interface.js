@@ -63,12 +63,23 @@ function getMethodsFromObject(obj) {
             .removeAllSpaces()
         );
       } else if (funcStr.includes('(')) {
-        return (
-          funcName +
-          funcStr
-            .substr(funcStr.indexOf('('), funcStr.indexOf('='))
-            .removeAllSpaces()
-        );
+        if (funcStr.includes('=')) {
+          // fn: () => {}
+          return (
+            funcName +
+            funcStr
+              .substr(funcStr.indexOf('('), funcStr.indexOf('='))
+              .removeAllSpaces()
+          );
+        } else {
+          // fn() {}
+          return (
+            funcName +
+            funcStr
+              .substr(funcStr.indexOf('('), funcStr.indexOf('{'))
+              .removeAllSpaces()
+          );
+        }
       } else {
         return (
           funcName +

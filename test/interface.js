@@ -26,6 +26,11 @@ const testInterface4Object = {
   required4: function ({ arg1, arg2, arg3 }, arg4) {},
 };
 
+const testInterface5Object = {
+  required5({ arg1 }) {},
+  required6: ({ arg1 }) => {},
+};
+
 class parentClass {
   constructor() {}
 
@@ -194,6 +199,21 @@ describe('Interface', () => {
     } catch (err) {
       expect(err.message).to.equal(
         'testClass must implement required1(arg1) required2(arg1,arg2) required3({arg1,arg2,arg3}) methods'
+      );
+    }
+  });
+  it('should throw error class did not implemented testInterface5Object', () => {
+    try {
+      class testClass extends Interface(testInterface5Object) {
+        constructor() {
+          super();
+        }
+      }
+
+      new testClass();
+    } catch (err) {
+      expect(err.message).to.equal(
+        'testClass must implement required5({arg1}) required6({arg1}) methods'
       );
     }
   });

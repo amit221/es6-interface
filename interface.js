@@ -1,3 +1,7 @@
+String.prototype.removeAllSpaces = function () {
+	return this.replace(/\s+/g, '');
+};
+
 const getClassMethodNames = (obj) => {
 	let methods = new Set();
 	while (obj = Reflect.getPrototypeOf(obj)) {
@@ -11,11 +15,14 @@ const getArgs = (func) => {
 
 	switch (typeof func) {
 		case 'function': {
-			args = func.toString().match(/\(\s*([^)]*?)\s*\)/);
+			args = func
+				.toString()
+				.removeAllSpaces()
+				.match(/\(\s*([^)]*?)\s*\)/);
 			break;
 		}
 		case 'string': {
-			args = func.match(/\(\s*([^)]*?)\s*\)/);
+			args = func.removeAllSpaces().match(/\(\s*([^)]*?)\s*\)/);
 			break;
 		}
 		default: {
@@ -40,7 +47,7 @@ class DummyClassForExtendsIfNoClassWasSendToAvoidError {
 
 function getMethodsFromObject(obj) {
 	return Object.keys(obj).filter(funcName => typeof obj[funcName] === "function").map(funcName => {
-		const funcStr = obj[funcName].toString();
+		const funcStr = obj[funcName].toString().removeAllSpaces();
 		if (funcStr.includes("function")) {
 			return funcName + funcStr.substr(0, funcStr.lastIndexOf("{")).replace("function", "");
 		} else if (funcStr.includes("(")) {

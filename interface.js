@@ -60,9 +60,19 @@ function getMethodsFromObject(obj) {
 					funcStr.substr(0, funcStr.lastIndexOf('{')).replace('function', '')
 				);
 			} else if (funcStr.includes('(')) {
-				return (
-					funcName + funcStr.substr(funcStr.indexOf('('), funcStr.indexOf('='))
-				);
+				if (funcStr.includes('=')) {
+					// fn: () => {}
+					return (
+						funcName +
+						funcStr.substr(funcStr.indexOf('('), funcStr.indexOf('='))
+					);
+				} else {
+					// fn() {}
+					return (
+						funcName +
+						funcStr.substr(funcStr.indexOf('('), funcStr.lastIndexOf('{'))
+					);
+				}
 			} else {
 				return funcName + '(' + funcStr.substr(0, funcStr.indexOf('=')) + ')';
 			}

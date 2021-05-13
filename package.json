@@ -1,30 +1,32 @@
 {
-  "name": "es6-interface",
-  "version": "3.1.4",
-  "description": "this module helps you build interfaces for es6 class",
-  "main": "interface.js",
-  "dependencies": {},
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0"
-  },
-  "scripts": {
-    "test": "mocha --timeout 10000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/amit221/es6-interface.git"
-  },
-  "keywords": [
-    "es6",
-    "interface",
-    "class",
-    "javascript"
-  ],
-  "author": "Amit Wagner",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/amit221/interface/issues"
-  },
-  "homepage": "https://github.com/amit221/interface#readme"
+	"name": "es6-interface",
+	"version": "3.1.4",
+	"description": "this module helps you build interfaces for es6 class",
+	"main": "interface.js",
+	"devDependencies": {
+		"chai": "^4.1.2",
+		"eslint": "^7.26.0",
+		"mocha": "^5.2.0",
+		"prettier": "^2.3.0"
+	},
+	"scripts": {
+		"test": "mocha --timeout 10000",
+		"lint": "eslint ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/amit221/es6-interface.git"
+	},
+	"keywords": [
+		"es6",
+		"interface",
+		"class",
+		"javascript"
+	],
+	"author": "Amit Wagner",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/amit221/interface/issues"
+	},
+	"homepage": "https://github.com/amit221/interface#readme"
 }

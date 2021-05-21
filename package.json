@@ -1,6 +1,6 @@
 {
 	"name": "es6-interface",
-	"version": "3.1.4",
+	"version": "3.2.0",
 	"description": "this module helps you build interfaces for es6 class",
 	"main": "interface.js",
 	"devDependencies": {

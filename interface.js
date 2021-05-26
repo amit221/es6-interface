@@ -146,14 +146,10 @@ const container = function () {
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 	module.exports = container;
-	return;
-}
-
-if (typeof define === 'function' && define.amd) {
+} else if (typeof define === 'function' && define.amd) {
 	define([], function () {
 		return container;
 	});
-	return;
+} else {
+	window.es6Interface = container;
 }
-
-window.es6Interface = container;
